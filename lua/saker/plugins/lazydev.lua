@@ -3,6 +3,11 @@ return {
     "folke/lazydev.nvim",
     ft = "lua", -- only load on lua files
     opts = {
+      -- lazydev fights with an explicit .luarc.json over workspace.library;
+      -- let the luarc win in workspaces that have one (like this config)
+      enabled = function(root_dir)
+        return not vim.uv.fs_stat(root_dir .. "/.luarc.json")
+      end,
       library = {
         -- Load luvit types when the `vim.uv` word is found
         { path = "${3rd}/luv/library", words = { "vim%.uv" } },

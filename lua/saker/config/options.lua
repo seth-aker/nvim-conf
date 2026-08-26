@@ -50,11 +50,18 @@ vim.o.colorcolumn = "100"
 vim.o.hlsearch = true
 
 vim.diagnostic.config({
-  virtual_text = false,
-  virtual_lines = false,
-  float = {
-    border = 'rounded',
-    source = true,
-  },
+	virtual_text = false,
+	virtual_lines = false,
+	float = {
+		border = 'rounded',
+		source = true,
+	},
 })
 
+
+-- Any .json file in .vscode/ folder gets parsed as json5 (comments, trailing commas allowed, etc)
+vim.filetype.add({
+  pattern = {
+    ['.*/%.vscode/.*%.json'] = 'json5',
+  },
+})

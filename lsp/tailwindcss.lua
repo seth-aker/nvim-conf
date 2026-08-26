@@ -84,7 +84,6 @@ return {
       },
     },
   },
-  ---@type lspconfig.settings.tailwindcss
   settings = {
     tailwindCSS = {
       validate = true,

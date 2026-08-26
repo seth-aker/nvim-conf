@@ -3,7 +3,9 @@
     "workspace.checkThirdParty": false,
     "workspace.library": [
         "$VIMRUNTIME",
-        "${3rd}/luv/library"
+        "/opt/homebrew/share/nvim/runtime",
+        "${3rd}/luv/library",
+        "~/.local/share/nvim/lazy/neominimap.nvim/lua"
     ],
     "diagnostics.globals": ["vim"]
 }
