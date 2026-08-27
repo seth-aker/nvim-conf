@@ -37,6 +37,12 @@ return {
 		    set("NeoTreeGitUnstaged", { fg = palette.colors.blue })
 		    set("NeoTreeGitConflict", { fg = palette.colors.red })
 		    set("NeoTreeGitDeleted", { fg = palette.colors.red })
+		    -- the theme's Diff* groups use fg and bg of nearly the same hue
+		    -- (green on bright green, etc.); tint only the bg so code stays readable
+		    set("DiffAdd", { bg = "#26382d" })
+		    set("DiffChange", { bg = "#253243" })
+		    set("DiffText", { bg = "#2f4a68", bold = true })
+		    set("DiffDelete", { bg = "#3b2723", fg = "#7a5049" })
 		end,
 	    })
 	    vim.cmd.colorscheme "bearded"

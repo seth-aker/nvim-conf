@@ -1,10 +1,10 @@
 vim.g.mapleader = " "
 
 --- NORMAL MODE ---
-vim.keymap.set("n", "<leader>h", "<C-w>h")
-vim.keymap.set("n", "<leader>j", "<C-w>j")
-vim.keymap.set("n", "<leader>k", "<C-w>k")
-vim.keymap.set("n", "<leader>l", "<C-w>l")
+vim.keymap.set("n", "<leader>H", "<C-w>h")
+vim.keymap.set("n", "<leader>J", "<C-w>j")
+vim.keymap.set("n", "<leader>K", "<C-w>k")
+vim.keymap.set("n", "<leader>L", "<C-w>l")
 
 --- NEOTREE ---
 vim.keymap.set("n", "<leader>cd", '<cmd>Neotree focus<CR>',
@@ -49,8 +49,8 @@ end
 
 
 --- FLUTTER ---
-vim.keymap.set('n', "<leader>FR", "<cmd>FlutterRun<CR>", { desc = "Run flutter debug session"})
-vim.keymap.set('n', "<leader>FI", "<cmd>FlutterOpenDevTools<CR>", { desc = "Open flutter devtools"})
+vim.keymap.set('n', "<leader>FR", "<cmd>FlutterRun<CR>", { desc = "Run flutter debug session" })
+vim.keymap.set('n', "<leader>FI", "<cmd>FlutterOpenDevTools<CR>", { desc = "Open flutter devtools" })
 
 
 --- VISUAL MODE ---
