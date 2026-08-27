@@ -7,7 +7,6 @@ return {
 	    require("bearded").setup({
 		flavor = "arc-eolstorm",
 		italic = false,
-		-- match VS Code, which colors keywords like const/class yellow
 		on_highlights = function(set, palette)
 		    set("@keyword", { fg = palette.colors.yellow })
 		    set("@keyword.coroutine", { fg = palette.colors.yellow })
@@ -37,6 +36,13 @@ return {
 		    set("NeoTreeGitUnstaged", { fg = palette.colors.blue })
 		    set("NeoTreeGitConflict", { fg = palette.colors.red })
 		    set("NeoTreeGitDeleted", { fg = palette.colors.red })
+
+		    set("RainbowDelimiterYellow", { fg = palette.colors.yellow })
+		    set("RainbowDelimiterBlue", { fg = palette.colors.blue })
+		    set("RainbowDelimiterOrange", { fg = palette.colors.orange })
+		    set("RainbowDelimiterGreen", { fg = palette.colors.green })
+		    set("RainbowDelimiterViolet", { fg = palette.colors.purple })
+		    set("RainbowDelimiterCyan", { fg = palette.colors.turquoize })
 		    -- the theme's Diff* groups use fg and bg of nearly the same hue
 		    -- (green on bright green, etc.); tint only the bg so code stays readable
 		    set("DiffAdd", { bg = "#26382d" })

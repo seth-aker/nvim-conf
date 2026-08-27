@@ -57,5 +57,8 @@ vim.keymap.set('n', "<leader>FI", "<cmd>FlutterOpenDevTools<CR>", { desc = "Open
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Moves selection up in visual mode" })
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Moves lines down in visual mode" })
 
+vim.keymap.set('v', ">", ">gv", { desc = "Indent right and keep selection" })
+vim.keymap.set('v', "<", "<gv", { desc = "Indent left and keep selection" })
+
 --- TERMINAL MODE ---
 vim.keymap.set("t", "<Esc><Esc>", [[<C-\><C-n>]], { silent = true, desc = "Leave terminal mode" })
