@@ -47,6 +47,36 @@ for i = 1, 9 do
 	vim.keymap.set("n", "<leader>" .. i, "<cmd>BufferLineGoToBuffer " .. i .. "<CR>", { desc = "Go to buffer " .. i })
 end
 
+--- CODECOMPANION ---
+vim.keymap.set('n', "<leader>ct", function()
+	require("codecompanion").toggle_cli()
+end, { desc = "Toggle Claude Code CLI" })
+
+vim.keymap.set('n', "<leader>cp", function()
+	require('codecompanion').cli({ prompt = true })
+end, { desc = "Open Claude with a prompt" })
+
+vim.keymap.set("n", "<leader>ce", function()
+	local cli = require("codecompanion.interactions.cli")
+	if not cli.is_visible() then
+		local instance = cli.last_cli() or cli.create()
+		local cur_win = vim.api.nvim_get_current_win()
+		instance.ui:open()
+		vim.api.nvim_set_current_win(cur_win)
+	end
+	require("codecompanion").cli("#{diagnostics} Can you fix these?", { focus = false, submit = true })
+end, { desc = "Send diagnostics to CLI agent" })
+
+vim.keymap.set({ "n", "v" }, "<leader>cc", function()
+	local cli = require("codecompanion.interactions.cli")
+	if not cli.is_visible() then
+		local instance = cli.last_cli() or cli.create()
+		local cur_win = vim.api.nvim_get_current_win()
+		instance.ui:open()
+		vim.api.nvim_set_current_win(cur_win)
+	end
+	return require("codecompanion").cli("#{this}", { focus = false })
+end, { desc = "Add context to the CLI agent" })
 
 --- FLUTTER ---
 vim.keymap.set('n', "<leader>FR", "<cmd>FlutterRun<CR>", { desc = "Run flutter debug session" })
