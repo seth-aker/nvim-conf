@@ -22,6 +22,7 @@ end
 --- BUFFERLINE ---
 vim.keymap.set("n", "<S-l>", "<cmd>BufferLineCycleNext<CR>", { desc = "Next buffer tab" })
 vim.keymap.set("n", "<S-h>", "<cmd>BufferLineCyclePrev<CR>", { desc = "Previous buffer tab" })
+vim.keymap.set("n", "<leader>ba", "<cmd>BufferLineCloseOthers<CR>", { desc = "Close every buffer except the current one"})
 vim.keymap.set("n", "<leader>bd", function()
 	local buf = vim.api.nvim_get_current_buf()
 	if vim.bo[buf].modified then
