@@ -9,6 +9,9 @@ return {
 			"theHamsta/nvim-dap-virtual-text",
 			opts = {},
 		},
+    {
+      "mfussenegger/nvim-dap-python",
+    }
 	},
 	keys = {
 		{ "<F5>",       function() require("dap").continue() end,                                  desc = "DAP continue/start" },
@@ -29,5 +32,6 @@ return {
 		dap.listeners.after.event_initialized.dapui = function() dapui.open() end
 		dap.listeners.before.event_terminated.dapui = function() dapui.close() end
 		dap.listeners.before.event_exited.dapui = function() dapui.close() end
+		require("dap-python").setup("debugpy-adapter")
 	end,
 }
