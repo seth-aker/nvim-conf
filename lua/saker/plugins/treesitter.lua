@@ -1,7 +1,8 @@
 return {
     'nvim-treesitter/nvim-treesitter',
     build = ":TSUpdate",
-    config = function()
+    opts = {
+      config = function()
 	require("nvim-treesitter").install({
 	    "lua",
 	    "typescript",
@@ -28,5 +29,5 @@ return {
 		end
 	    end,
 	})
-    end
+    end},
 }
