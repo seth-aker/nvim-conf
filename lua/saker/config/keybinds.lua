@@ -9,6 +9,7 @@ vim.keymap.set("n", "<leader>L", "<C-w>l")
 --- NEOTREE ---
 vim.keymap.set("n", "<leader>cd", '<cmd>Neotree focus<CR>',
 	{ noremap = true, silent = true, desc = "Focus Neo-tree window" })
+vim.keymap.set('n', "<leader>tt", '<cmd>Neotree toggle<CR>', { desc = "Toggle Neo-tree" } )
 
 --- TERMINAL ---
 vim.keymap.set("n", "<leader>st", function()

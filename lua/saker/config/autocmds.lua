@@ -36,3 +36,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
 	end,
 
 })
+
+vim.api.nvim_create_autocmd("SessionLoadPost", {
+  callback = function()
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.api.nvim_buf_get_name(buf):match("neo%-tree filesystem") then
+        vim.api.nvim_buf_delete(buf, { force = true })
+      end
+    end
+  end,
+})

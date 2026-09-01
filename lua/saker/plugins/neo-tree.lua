@@ -6,6 +6,7 @@ return {
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
       "nvim-tree/nvim-web-devicons", -- optional, but recommended
+      "saifulapm/neotree-file-nesting-config",
     },
     lazy = false, -- neo-tree will lazily load itself
     opts = {
@@ -19,12 +20,19 @@ return {
           visible = true,
           hide_dotfiles = false,
           hide_gitignored = false,
-          never_show = { ".git" },
+          never_show = { ".git", ".DS_Store", },
         },
       },
       source_selector = {
 	winbar = true,
 	statusline = true,
+      },
+      default_componenet_configs = {
+	indent = {
+	  with_expanders = true,
+	  expander_collapsed = '',
+          expander_expanded = '',
+	},
       },
       close_if_last_window = true,
     },

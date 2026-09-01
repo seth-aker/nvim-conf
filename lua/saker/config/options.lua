@@ -43,7 +43,7 @@ vim.o.clipboard = "unnamedplus"
 vim.o.updatetime = 50
 
 -- what gets captured in a session, recommended by auto-session
-vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,localoptions"
 
 vim.o.colorcolumn = "100"
 
