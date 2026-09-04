@@ -8,6 +8,7 @@ return {
 	opts = function()
 		local opts = {
 			fvm = true,
+			dev_log = { enabled = false },
 			debugger = {
 		  enabled = true,
 		  run_via_dap = true,

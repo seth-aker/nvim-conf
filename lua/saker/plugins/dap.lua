@@ -27,11 +27,29 @@ return {
 	config = function()
 		local dap = require("dap")
 		local dapui = require("dapui")
-		dapui.setup()
+		dapui.setup({
+			layouts = {
+				{
+					elements = {
+						{ id = "scopes",      size = 0.25 },
+						{ id = "breakpoints", size = 0.25 },
+						{ id = "stacks",      size = 0.25 },
+						{ id = "watches",     size = 0.25 },
+					},
+					position = "left",
+					size = 40,
+				},
+				{
+					elements = {
+						{ id = "repl", size = 1.0 },
+					},
+					position = "bottom",
+					size = 10,
+				},
+			},
+		})
 		require('dap.ext.vscode').json_decode = require 'json5'.parse
 		dap.listeners.after.event_initialized.dapui = function() dapui.open() end
-		dap.listeners.before.event_terminated.dapui = function() dapui.close() end
-		dap.listeners.before.event_exited.dapui = function() dapui.close() end
 		require("dap-python").setup("debugpy-adapter")
 
 		if not dap.adapters["pwa-node"] then
@@ -65,13 +83,27 @@ return {
 
 		local js_filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact" }
 
-		local current_file = vim.fn.expand("%:t")
+		local function package_root()
+			return vim.fs.root(0, "package.json") or vim.fn.getcwd()
+		end
+
+		-- js-debug only resolves bare runtimeExecutable names against PATH
+		-- (node_modules/.bin lookup needs VS Code's __workspaceFolder), so
+		-- walk up from the file to find the project-local tsx ourselves.
+		local function tsx_cmd()
+			for dir in vim.fs.parents(vim.api.nvim_buf_get_name(0)) do
+				local tsx = dir .. "/node_modules/.bin/tsx"
+				if vim.uv.fs_stat(tsx) then return tsx end
+			end
+			return "tsx"
+		end
 
 		local vscode = require("dap.ext.vscode")
 		vscode.type_to_filetypes["node"] = js_filetypes
 		vscode.type_to_filetypes["pwa-node"] = js_filetypes
 
 		for _, language in ipairs(js_filetypes) do
+			local is_typescript = vim.startswith(language, "typescript")
 			if not dap.configurations[language] then
 				dap.configurations[language] = {
 					{
@@ -79,26 +111,10 @@ return {
 						request = "launch",
 						name = "Launch file",
 						program = "${file}",
-						cwd = "${workspaceFolder}",
+						cwd = package_root,
+						runtimeExecutable = is_typescript and tsx_cmd or nil,
+						skipFiles = is_typescript and { "<node_internals>/**", "**/node_modules/**" } or nil,
 					},
-					{
-						type = "pwa-node",
-						request = "attach",
-						name = "Attach",
-						processId = require("dap.utils").pick_process,
-						cwd = "${workspaceFolder}",
-					},
-					{
-						name = "tsx (" .. current_file .. ")",
-						type = "node",
-						request = "launch",
-						program = "${file}",
-						runtimeExecutable = "tsx",
-						cwd = "${workspaceFolder}",
-						console = "integratedTerminal",
-						internalConsoleOptions = "neverOpen",
-						skipFiles = { "<node_internals>/**", "${workspaceFolder}/node_modules/**" },
-					}
 				}
 			end
 		end
