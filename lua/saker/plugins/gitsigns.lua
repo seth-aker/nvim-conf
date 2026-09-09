@@ -54,8 +54,8 @@ return {
 				gitsigns.diffthis('~')
 			end, { desc = "Git diffthis ~"})
 
-			map('n', '<leader>hQ', function() gitsigns.setqflist('all') end)
-			map('n', '<leader>hq', gitsigns.setqflist)
+			map('n', '<leader>hQ', function() gitsigns.setqflist('all') end, { desc = "Open quickfix list for repo"})
+			map('n', '<leader>hq', gitsigns.setqflist, { desc = "Open quickfix list" })
 
 			-- Toggles
 			map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = "Toggle current line git blame" })

@@ -83,6 +83,7 @@ end, { desc = "Add context to the CLI agent" })
 --- FLUTTER ---
 vim.keymap.set('n', "<leader>FR", "<cmd>FlutterRun<CR>", { desc = "Run flutter debug session" })
 vim.keymap.set('n', "<leader>FI", "<cmd>FlutterOpenDevTools<CR>", { desc = "Open flutter devtools" })
+vim.keymap.set('n', "<leader>FD", "<cmd>FlutterDevices<CR>", { desc = "Switch flutter device" })
 
 
 --- VISUAL MODE ---
