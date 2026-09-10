@@ -27,31 +27,36 @@ return {
 	config = function()
 		local dap = require("dap")
 		local dapui = require("dapui")
-		dapui.setup({
-			layouts = {
-				{
-					elements = {
-						{ id = "scopes",      size = 0.25 },
-						{ id = "breakpoints", size = 0.25 },
-						{ id = "stacks",      size = 0.25 },
-						{ id = "watches",     size = 0.25 },
-					},
-					position = "left",
-					size = 40,
-				},
-				{
-					elements = {
-						{ id = "repl", size = 1.0 },
-					},
-					position = "bottom",
-					size = 10,
-				},
-			},
-		})
+		dapui.setup(
+		  -- {
+		-- 	layouts = {
+		-- 		{
+		-- 			elements = {
+		-- 				{ id = "scopes",      size = 0.25 },
+		-- 				{ id = "breakpoints", size = 0.25 },
+		-- 				{ id = "stacks",      size = 0.25 },
+		-- 				{ id = "watches",     size = 0.25 },
+		-- 			},
+		-- 			position = "left",
+		-- 			size = 40,
+		-- 		},
+		-- 		{
+		-- 			elements = {
+		-- 				{ id = "repl", size = 1.0 },
+		-- 			},
+		-- 			position = "bottom",
+		-- 			size = 10,
+		-- 		},
+		-- 	},
+		-- }
+	      )
 		require('dap.ext.vscode').json_decode = require 'json5'.parse
 		dap.listeners.after.event_initialized.dapui = function() dapui.open() end
+
+		-- setup python
 		require("dap-python").setup("debugpy-adapter")
 
+		-- setup javascript/typescript
 		if not dap.adapters["pwa-node"] then
 			local mason_root = vim.env.MASON or (vim.fn.stdpath("data") .. "/mason")
 			require('dap').adapters['pwa-node'] = {
@@ -117,6 +122,24 @@ return {
 					},
 				}
 			end
+		end
+
+		-- setup java and pull in secrets.json
+		dap.listeners.on_config["envFromFile"] = function(config)
+			if not config.envFromFile then
+			  vim.notify("envFromFile not found, config shape: " .. table.concat(config, '\n')) return config end
+			config = vim.deepcopy(config)
+			config.env = config.env or {}
+			for var, path in pairs(config.envFromFile) do
+				path = path:gsub("%${workspaceFolder}", vim.fn.getcwd())
+				if vim.fn.filereadable(path) == 1 then
+					config.env[var] = table.concat(vim.fn.readfile(path), "")
+				else
+					vim.notify("envFromFile: cannot read " .. path, vim.log.levels.WARN)
+				end
+			end
+			config.envFromFile = nil
+			return config
 		end
 	end,
 }
