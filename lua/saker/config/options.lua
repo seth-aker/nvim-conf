@@ -8,10 +8,13 @@ vim.o.relativenumber = true
 -- show the cursor's line
 vim.o.cursorline = true
 
--- indent width
-vim.o.shiftwidth = 2
-vim.o.autoindent = true
+-- indent
+vim.o.shiftwidth = 2 -- on new line, how far to indent
+vim.o.tabstop = 2 -- width of a tab
+vim.o.softtabstop = 2 -- width of a tab in spaces
+vim.o.autoindent = true -- copies indentation from previous line
 vim.o.smartindent = true
+vim.o.expandtab = true
 
 -- allow undo/redo even after file has been closed and reopened
 vim.o.undofile = true
