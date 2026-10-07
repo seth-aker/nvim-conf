@@ -19,5 +19,5 @@ require("lazy").setup({
   spec = {
     { import = "saker.plugins" },
   },
-  checker = { enabled = true },
+  checker = { enabled = true, notify = false },
 })

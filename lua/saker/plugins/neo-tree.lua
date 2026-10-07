@@ -12,6 +12,10 @@ return {
     opts = {
       filesystem = {
         use_libuv_file_watcher = true,
+        -- VS Code-style compact folders: a chain of single-child dirs renders as one a/b/c node;
+        -- "deep" scans ahead so the chain is grouped before it's expanded
+        group_empty_dirs = true,
+        scan_mode = "deep",
         follow_current_file = {
           enabled = true,
           leave_dirs_open = true,

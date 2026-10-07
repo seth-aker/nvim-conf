@@ -67,6 +67,11 @@
 ---
 --- This includes the same Deno-excluding logic from `ts_ls`. It is not recommended to enable both `vtsls` and `ts_ls` at the same time!
 
+-- vue_ls 3.x runs in hybrid mode and delegates all TypeScript work in .vue
+-- files to vtsls, which only knows about Vue via this plugin.
+local vue_language_server_path = vim.fn.expand('$MASON/packages')
+  .. '/vue-language-server/node_modules/@vue/language-server'
+
 ---@type vim.lsp.Config
 return {
   cmd = { 'vtsls', '--stdio' },
@@ -78,6 +83,21 @@ return {
     'javascriptreact',
     'typescript',
     'typescriptreact',
+    'vue',
+  },
+  settings = {
+    vtsls = {
+      tsserver = {
+        globalPlugins = {
+          {
+            name = '@vue/typescript-plugin',
+            location = vue_language_server_path,
+            languages = { 'vue' },
+            configNamespace = 'typescript',
+          },
+        },
+      },
+    },
   },
   root_dir = function(bufnr, on_dir)
     -- The project root is where the LSP can be started from
